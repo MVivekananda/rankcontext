@@ -187,19 +187,239 @@ Advanced statistical analysis reveals the detailed breakdown:
 
 ---
 
-## 🔧 Architecture
+## 🏗️ Architecture & Project Structure
 
-### Core Components
+### Project Organization
 
 ```
 rankcontext/
-├── ingestion.py          # Repository data collection (optimized shallow clone)
-├── git_history.py        # Git analysis (10-20x faster batch processing)
-├── ast_parser.py         # AST skeleton generation
-├── scoring.py            # Multi-signal ranking algorithm
-├── selection.py          # Token-aware file selection (smoothed ratios)
-├── bundler.py            # Context bundling with AST skeletons
-└── pipeline.py           # End-to-end orchestration
+├── rankcontext/               # Core package
+│   ├── pipeline.py            # 🔄 Orchestration (9-stage pipeline)
+│   ├── scoring.py             # 📊 Multi-signal ranking algorithm
+│   ├── selection.py           # 🎯 Token-aware file selection
+│   ├── git_history.py         # ⚡ Git analysis (10-20x faster)
+│   ├── ast_parser.py          # 🌳 AST skeleton generation
+│   ├── bundler.py             # 📦 Context bundling
+│   ├── ingestion.py           # 📥 Repository data collection
+│   ├── graph.py               # 🔗 Dependency graph analysis
+│   ├── cli.py                 # 💻 Command-line interface
+│   ├── webapp.py              # 🌐 Web interface
+│   ├── config.py              # ⚙️ Configuration management
+│   ├── tokens.py              # 🔢 Token management
+│   └── __init__.py            # Package exports
+│
+├── tests/                     # Test suite
+│   └── test_pipeline.py       # Integration tests (8/8 passing)
+│
+├── benchmarks/                # Real LLM Benchmarks
+│   ├── generate_benchmarks.py # 🧪 Reproducible evaluation script
+│   └── results.json           # 📊 Real benchmark data
+│
+├── assets/                    # Visualizations
+│   ├── Figure_1_Accuracy_Comparison.png
+│   ├── Figure_2_Coverage_Analysis.png
+│   ├── Figure_3_Budget_Scalability.png
+│   ├── Figure_4_Per_Repo_Performance.png
+│   ├── Figure_5_Distribution_Comparison.png
+│   └── Figure_6_Effect_Size_Heatmap.png
+│
+├── evaluation/                # Evaluation tools
+│   ├── llm_eval.py
+│   ├── run_eval.py
+│   └── RESULTS.md
+│
+├── README.md                  # Documentation
+├── LICENSE                    # MIT License
+├── requirements.txt           # Dependencies
+├── pyproject.toml            # Project metadata
+└── .gitignore               # Git exclusions
+```
+
+### Core Pipeline Architecture
+
+```mermaid
+graph LR
+    A["📥 Repository<br/>Ingestion"] --> B["🔗 Dependency<br/>Graph Analysis"]
+    B --> C["⏰ Recency<br/>Scoring"]
+    C --> D["📊 Multi-Signal<br/>Ranking"]
+    D --> E["🎯 Token-Aware<br/>Selection"]
+    E --> F["🌳 AST Skeleton<br/>Generation"]
+    F --> G["📦 Context<br/>Bundling"]
+    G --> H["🧠 LLM Ready<br/>Context"]
+    
+    style A fill:#e1f5ff
+    style B fill:#f3e5f5
+    style C fill:#fff3e0
+    style D fill:#f1f8e9
+    style E fill:#fce4ec
+    style F fill:#ede7f6
+    style G fill:#e0f2f1
+    style H fill:#c8e6c9
+```
+
+### Data Flow Diagram
+
+```mermaid
+graph TB
+    subgraph Input["📥 Input"]
+        A["Repository Path"]
+        B["Token Budget"]
+        C["Configuration"]
+    end
+    
+    subgraph Processing["⚙️ Processing Pipeline"]
+        D["Stage 1: Clone & Analyze<br/>Shallow clone + git history"]
+        E["Stage 2: Build Graph<br/>Dependency analysis"]
+        F["Stage 3: Score Files<br/>Multi-signal ranking"]
+        G["Stage 4: Select Files<br/>Token-aware selection"]
+        H["Stage 5: Parse AST<br/>Architecture skeleton"]
+        I["Stage 6: Bundle Context<br/>Format for LLM"]
+    end
+    
+    subgraph Output["📤 Output"]
+        J["Ranked Files List"]
+        K["Context Bundle"]
+        L["Statistics"]
+    end
+    
+    A --> D
+    B --> D
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H --> I
+    I --> J
+    I --> K
+    I --> L
+    
+    style Input fill:#e3f2fd
+    style Processing fill:#f5f5f5
+    style Output fill:#c8e6c9
+```
+
+### Multi-Signal Ranking Algorithm
+
+```mermaid
+graph TB
+    A["File"] --> B["Calculate Centrality<br/>PageRank: 40%"]
+    A --> C["Calculate Recency<br/>Exponential Decay: 25%"]
+    A --> D["Check Documentation<br/>Boost: 20%"]
+    A --> E["Estimate Tokens<br/>Smoothing: 10%"]
+    A --> F["Parse AST<br/>Skeleton: 5%"]
+    
+    B --> G["Weighted Sum"]
+    C --> G
+    D --> G
+    E --> G
+    F --> G
+    
+    G --> H["Final Score<br/>0.0 - 1.0"]
+    H --> I["Sort by<br/>Score/Tokens"]
+    I --> J["Select Top N<br/>Within Budget"]
+    
+    style A fill:#fff9c4
+    style B fill:#b3e5fc
+    style C fill:#ffe0b2
+    style D fill:#c8e6c9
+    style E fill:#f8bbd0
+    style F fill:#e1bee7
+    style G fill:#f5f5f5
+    style H fill:#c8e6c9
+    style I fill:#c8e6c9
+    style J fill:#81c784
+```
+
+### Benchmark Evaluation Workflow
+
+```mermaid
+graph LR
+    A["Repository<br/>6 Diverse Codebases"] --> B["Generate<br/>Questions<br/>12 Architecture Q's"]
+    B --> C["Extract Context<br/>Using 3 Methods"]
+    C --> D["RankContext<br/>Ranking"]
+    C --> E["Flat<br/>Alphabetical"]
+    C --> F["Random<br/>Shuffle"]
+    
+    D --> G["Claude API<br/>Answer Question"]
+    E --> G
+    F --> G
+    
+    G --> H["Score Answer<br/>Keyword Matching"]
+    H --> I["Calculate<br/>Accuracy"]
+    
+    I --> J["Statistical<br/>Analysis"]
+    J --> K["Results:<br/>28% Improvement<br/>p &lt; 0.001"]
+    
+    style A fill:#fff9c4
+    style B fill:#ffe0b2
+    style D fill:#81c784
+    style E fill:#ffb74d
+    style F fill:#ef9a9a
+    style G fill:#b3e5fc
+    style H fill:#f8bbd0
+    style I fill:#c8e6c9
+    style K fill:#81c784
+```
+
+### Component Relationships
+
+```mermaid
+graph TD
+    Pipeline["pipeline.py<br/>🔄 Orchestrator"]
+    
+    Pipeline --> Ingestion["ingestion.py<br/>📥 Repository Analysis"]
+    Pipeline --> GitHistory["git_history.py<br/>⏰ Recency Signals"]
+    Pipeline --> Graph["graph.py<br/>🔗 Dependency Graph"]
+    Pipeline --> Scoring["scoring.py<br/>📊 Ranking Algorithm"]
+    Pipeline --> Selection["selection.py<br/>🎯 File Selection"]
+    Pipeline --> AstParser["ast_parser.py<br/>🌳 AST Skeleton"]
+    Pipeline --> Bundler["bundler.py<br/>📦 Context Bundling"]
+    
+    Scoring --> GitHistory
+    Scoring --> Graph
+    Selection --> Scoring
+    Bundler --> Selection
+    Bundler --> AstParser
+    
+    CLI["cli.py<br/>💻 CLI Interface"] --> Pipeline
+    WebApp["webapp.py<br/>🌐 Web Interface"] --> Pipeline
+    
+    Tokens["tokens.py<br/>🔢 Token Management"]
+    Config["config.py<br/>⚙️ Configuration"]
+    
+    Selection --> Tokens
+    Pipeline --> Config
+    
+    style Pipeline fill:#b3e5fc,stroke:#01579b,stroke-width:3px
+    style Ingestion fill:#e0f2f1
+    style GitHistory fill:#fff3e0
+    style Graph fill:#f3e5f5
+    style Scoring fill:#f1f8e9
+    style Selection fill:#fce4ec
+    style AstParser fill:#ede7f6
+    style Bundler fill:#e0f2f1
+    style CLI fill:#f5f5f5
+    style WebApp fill:#f5f5f5
+```
+
+### Real-World Usage Example
+
+```mermaid
+graph LR
+    A["You Have<br/>Large Codebase<br/>Django + React"] --> B["Want to Ask<br/>Architecture Q's<br/>via LLM"]
+    B --> C["Without RankContext<br/>67% Accuracy<br/>❌ Wrong Answers"]
+    B --> D["With RankContext<br/>87% Accuracy<br/>✅ Correct Answers"]
+    
+    C --> E["Wasted API Calls<br/>Wrong Context<br/>Poor Code Gen"]
+    D --> F["Accurate Understanding<br/>Smart Context<br/>Great Code Gen"]
+    
+    style A fill:#fff9c4
+    style B fill:#ffe0b2
+    style C fill:#ffcdd2
+    style D fill:#c8e6c9
+    style E fill:#ef9a9a
+    style F fill:#81c784
 ```
 
 ### Key Improvements
