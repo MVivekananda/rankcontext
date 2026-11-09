@@ -1,4 +1,4 @@
-# RankContext: 28% LLM Code Understanding Breakthrough
+# RankContext: Intelligent Repository Ranking for LLM Code Understanding
 
 > **The Intelligence Gap is Closing: RankContext achieves statistically significant 28% accuracy improvement on LLM architecture understanding through intelligent repository ranking. Real benchmarks. Reproducible. Production-ready.**
 
@@ -153,7 +153,7 @@ The improvement generalizes perfectly across diverse codebases:
 | Django ORM | +22-27% | Database layer, high complexity |
 | RankContext | +18-24% | Self-referential, low complexity |
 
-**Average: +24% across all repositories** - Not a one-trick pony.
+- **Average: +24% across all repositories**Not a one-trick pony.
 
 ### Statistical Rigor: This is Real
 
@@ -294,9 +294,24 @@ graph TB
     I --> K
     I --> L
     
-    style Input fill:#e3f2fd
-    style Processing fill:#f5f5f5
-    style Output fill:#c8e6c9
+    style A fill:#FFA726,stroke:#E65100,stroke-width:2px,color:#fff
+    style B fill:#FFA726,stroke:#E65100,stroke-width:2px,color:#fff
+    style C fill:#FFA726,stroke:#E65100,stroke-width:2px,color:#fff
+    
+    style D fill:#0277BD,stroke:#01579B,stroke-width:2px,color:#fff
+    style E fill:#7B1FA2,stroke:#4A148C,stroke-width:2px,color:#fff
+    style F fill:#388E3C,stroke:#1B5E20,stroke-width:2px,color:#fff
+    style G fill:#C2185B,stroke:#880E4F,stroke-width:2px,color:#fff
+    style H fill:#5E35B1,stroke:#311B92,stroke-width:2px,color:#fff
+    style I fill:#00796B,stroke:#004D40,stroke-width:2px,color:#fff
+    
+    style J fill:#66BB6A,stroke:#2E7D32,stroke-width:2px,color:#fff
+    style K fill:#4CAF50,stroke:#1B5E20,stroke-width:2px,color:#fff
+    style L fill:#43A047,stroke:#1B5E20,stroke-width:2px,color:#fff
+    
+    style Input fill:none,stroke:#E65100,stroke-width:2px,stroke-dasharray: 5 5
+    style Processing fill:none,stroke:#424242,stroke-width:2px,stroke-dasharray: 5 5
+    style Output fill:none,stroke:#2E7D32,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
 ### Multi-Signal Ranking Algorithm
@@ -785,9 +800,9 @@ Special thanks to all 6 repositories used in evaluation:
 
 ### Benchmarks Used
 - See `benchmarks/` directory for:
-  - `results.json` - Raw benchmark data (real LLM evaluation)
-  - `generate_benchmarks.py` - Reproduction script
-  - `EVAL_PLAN.md` - Detailed evaluation methodology
+-   - `results.json`Raw benchmark data (real LLM evaluation)
+-   - `generate_benchmarks.py`Reproduction script
+-   - `EVAL_PLAN.md`Detailed evaluation methodology
 
 ---
 
@@ -809,11 +824,11 @@ Tests Passing:               8/8 (100%)
 Lines of Code:               ~2,000 (production quality)
 
 WHY THIS MATTERS:
-• Not incremental (28% is LARGE in ML research)
-• Not luck (p < 0.001 means 99.9% confidence)
-• Not cherry-picked (consistent across 6 codebases)
-• Reproducible (anyone can verify with API key)
-• Production-ready (8/8 tests, no security issues)
+- Not incremental (28% is LARGE in ML research)
+- Not luck (p < 0.001 means 99.9% confidence)
+- Not cherry-picked (consistent across 6 codebases)
+- Reproducible (anyone can verify with API key)
+- Production-ready (8/8 tests, no security issues)
 ```
 
 ---
