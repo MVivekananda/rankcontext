@@ -247,14 +247,14 @@ graph LR
     F --> G["📦 Context<br/>Bundling"]
     G --> H["🧠 LLM Ready<br/>Context"]
     
-    style A fill:#e1f5ff
-    style B fill:#f3e5f5
-    style C fill:#fff3e0
-    style D fill:#f1f8e9
-    style E fill:#fce4ec
-    style F fill:#ede7f6
-    style G fill:#e0f2f1
-    style H fill:#c8e6c9
+    style A fill:#0277BD,stroke:#01579B,stroke-width:2px,color:#fff
+    style B fill:#7B1FA2,stroke:#4A148C,stroke-width:2px,color:#fff
+    style C fill:#F57C00,stroke:#E65100,stroke-width:2px,color:#fff
+    style D fill:#388E3C,stroke:#1B5E20,stroke-width:2px,color:#fff
+    style E fill:#C2185B,stroke:#880E4F,stroke-width:2px,color:#fff
+    style F fill:#5E35B1,stroke:#311B92,stroke-width:2px,color:#fff
+    style G fill:#00796B,stroke:#004D40,stroke-width:2px,color:#fff
+    style H fill:#00897B,stroke:#004D40,stroke-width:2px,color:#fff
 ```
 
 ### Data Flow Diagram
@@ -351,15 +351,15 @@ graph LR
     I --> J["Statistical<br/>Analysis"]
     J --> K["Results:<br/>28% Improvement<br/>p &lt; 0.001"]
     
-    style A fill:#fff9c4
-    style B fill:#ffe0b2
-    style D fill:#81c784
-    style E fill:#ffb74d
-    style F fill:#ef9a9a
-    style G fill:#b3e5fc
-    style H fill:#f8bbd0
-    style I fill:#c8e6c9
-    style K fill:#81c784
+    style A fill:#FFB74D,stroke:#E65100,stroke-width:2px,color:#fff
+    style B fill:#EF5350,stroke:#C62828,stroke-width:2px,color:#fff
+    style D fill:#66BB6A,stroke:#2E7D32,stroke-width:2px,color:#fff
+    style E fill:#FFA726,stroke:#E65100,stroke-width:2px,color:#fff
+    style F fill:#EF5350,stroke:#C62828,stroke-width:2px,color:#fff
+    style G fill:#42A5F5,stroke:#1565C0,stroke-width:2px,color:#fff
+    style H fill:#AB47BC,stroke:#6A1B9A,stroke-width:2px,color:#fff
+    style I fill:#66BB6A,stroke:#2E7D32,stroke-width:2px,color:#fff
+    style K fill:#4CAF50,stroke:#1B5E20,stroke-width:3px,color:#fff
 ```
 
 ### Component Relationships
@@ -391,16 +391,18 @@ graph TD
     Selection --> Tokens
     Pipeline --> Config
     
-    style Pipeline fill:#b3e5fc,stroke:#01579b,stroke-width:3px
-    style Ingestion fill:#e0f2f1
-    style GitHistory fill:#fff3e0
-    style Graph fill:#f3e5f5
-    style Scoring fill:#f1f8e9
-    style Selection fill:#fce4ec
-    style AstParser fill:#ede7f6
-    style Bundler fill:#e0f2f1
-    style CLI fill:#f5f5f5
-    style WebApp fill:#f5f5f5
+    style Pipeline fill:#1976D2,stroke:#1565C0,stroke-width:3px,color:#fff
+    style Ingestion fill:#0277BD,stroke:#01579B,stroke-width:2px,color:#fff
+    style GitHistory fill:#F57C00,stroke:#E65100,stroke-width:2px,color:#fff
+    style Graph fill:#7B1FA2,stroke:#4A148C,stroke-width:2px,color:#fff
+    style Scoring fill:#388E3C,stroke:#1B5E20,stroke-width:2px,color:#fff
+    style Selection fill:#C2185B,stroke:#880E4F,stroke-width:2px,color:#fff
+    style AstParser fill:#5E35B1,stroke:#311B92,stroke-width:2px,color:#fff
+    style Bundler fill:#00796B,stroke:#004D40,stroke-width:2px,color:#fff
+    style CLI fill:#424242,stroke:#212121,stroke-width:2px,color:#fff
+    style WebApp fill:#424242,stroke:#212121,stroke-width:2px,color:#fff
+    style Tokens fill:#616161,stroke:#424242,stroke-width:2px,color:#fff
+    style Config fill:#616161,stroke:#424242,stroke-width:2px,color:#fff
 ```
 
 ### Real-World Usage Example
@@ -414,12 +416,12 @@ graph LR
     C --> E["Wasted API Calls<br/>Wrong Context<br/>Poor Code Gen"]
     D --> F["Accurate Understanding<br/>Smart Context<br/>Great Code Gen"]
     
-    style A fill:#fff9c4
-    style B fill:#ffe0b2
-    style C fill:#ffcdd2
-    style D fill:#c8e6c9
-    style E fill:#ef9a9a
-    style F fill:#81c784
+    style A fill:#FFA726,stroke:#E65100,stroke-width:2px,color:#fff
+    style B fill:#42A5F5,stroke:#1565C0,stroke-width:2px,color:#fff
+    style C fill:#EF5350,stroke:#C62828,stroke-width:2px,color:#fff
+    style D fill:#66BB6A,stroke:#2E7D32,stroke-width:2px,color:#fff
+    style E fill:#EF5350,stroke:#C62828,stroke-width:2px,color:#fff
+    style F fill:#4CAF50,stroke:#1B5E20,stroke-width:3px,color:#fff
 ```
 
 ### Key Improvements
