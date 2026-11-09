@@ -303,32 +303,34 @@ graph TB
 
 ```mermaid
 graph TB
-    A["File"] --> B["Calculate Centrality<br/>PageRank: 40%"]
-    A --> C["Calculate Recency<br/>Exponential Decay: 25%"]
-    A --> D["Check Documentation<br/>Boost: 20%"]
-    A --> E["Estimate Tokens<br/>Smoothing: 10%"]
-    A --> F["Parse AST<br/>Skeleton: 5%"]
+    Start["🎯 Input File"] 
     
-    B --> G["Weighted Sum"]
+    Start --> B["📊 Centrality Signal<br/>PageRank: 40%"]
+    Start --> C["⏰ Recency Signal<br/>Exponential Decay: 25%"]
+    Start --> D["📝 Documentation Signal<br/>Boost: 20%"]
+    Start --> E["🔢 Token Signal<br/>Smoothing: 10%"]
+    Start --> F["🌳 AST Signal<br/>Skeleton: 5%"]
+    
+    B --> G["⚖️ Weighted Sum<br/>Combine All Signals"]
     C --> G
     D --> G
     E --> G
     F --> G
     
-    G --> H["Final Score<br/>0.0 - 1.0"]
-    H --> I["Sort by<br/>Score/Tokens"]
-    I --> J["Select Top N<br/>Within Budget"]
+    G --> H["✨ Final Score<br/>0.0 - 1.0"]
+    H --> I["📊 Normalize<br/>Score/Tokens"]
+    I --> J["🏆 Rank Files<br/>Select Top N"]
     
-    style A fill:#fff9c4
-    style B fill:#b3e5fc
-    style C fill:#ffe0b2
-    style D fill:#c8e6c9
-    style E fill:#f8bbd0
-    style F fill:#e1bee7
-    style G fill:#f5f5f5
-    style H fill:#c8e6c9
-    style I fill:#c8e6c9
-    style J fill:#81c784
+    style Start fill:#FFA726,stroke:#E65100,stroke-width:3px,color:#fff
+    style B fill:#1976D2,stroke:#1565C0,stroke-width:2px,color:#fff
+    style C fill:#F57C00,stroke:#E65100,stroke-width:2px,color:#fff
+    style D fill:#388E3C,stroke:#1B5E20,stroke-width:2px,color:#fff
+    style E fill:#7B1FA2,stroke:#4A148C,stroke-width:2px,color:#fff
+    style F fill:#0097A7,stroke:#006064,stroke-width:2px,color:#fff
+    style G fill:#616161,stroke:#212121,stroke-width:2px,color:#fff
+    style H fill:#66BB6A,stroke:#2E7D32,stroke-width:3px,color:#fff
+    style I fill:#66BB6A,stroke:#2E7D32,stroke-width:2px,color:#fff
+    style J fill:#4CAF50,stroke:#1B5E20,stroke-width:3px,color:#fff
 ```
 
 ### Benchmark Evaluation Workflow
