@@ -1,0 +1,19 @@
+# Core (CLI works with just these)
+networkx>=3.0
+pathspec>=0.11
+
+# Optional: exact BPE token counts via tiktoken. Requires network on
+# first use (downloads the cl100k_base encoding). Without it, token
+# counts fall back to a documented character-based approximation.
+tiktoken>=0.5
+
+# Web UI (stretch goal). PRD specifies FastAPI; this repo's web UI is
+# implemented with Flask instead because the build/test sandbox had no
+# network access to install fastapi/uvicorn. Both work equally well -
+# swap the two lines below for the FastAPI stack if you prefer it.
+flask>=3.0
+# fastapi>=0.100
+# uvicorn>=0.23
+
+# Dev / testing
+pytest>=7.0

@@ -1,0 +1,27 @@
+[project]
+name = "rankcontext"
+version = "0.1.0"
+description = "Relevance-ranked, token-budgeted codebase context extraction for LLMs."
+requires-python = ">=3.10"
+dependencies = [
+    "networkx>=3.0",
+    "pathspec>=0.11",
+]
+
+[project.optional-dependencies]
+tiktoken = ["tiktoken>=0.5"]
+web = ["fastapi>=0.100", "uvicorn>=0.23"]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+rankcontext = "rankcontext.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["rankcontext*"]
+
+[tool.setuptools.package-data]
+rankcontext = ["static/*.html"]

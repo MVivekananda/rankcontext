@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+.virtualenv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# Development
+*.log
+*.pot
+.env
+.env.local
+.env.*.local
+*.tmp
+*.bak
+context_bundle.txt
+
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+*.swp
+*.swo
+
+# Project-specific (development only)
+SENIOR_REVIEW.md
+GITHUB_READY.txt
+GITHUB_RELEASE_GUIDE.md
+PROJECT_SUMMARY.md
+FINAL_CHECKLIST.md
+RELEASE_COMPLETE.md
+.pytest_cache/

@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RankContext ⚡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFF5E1;
+    --fg: #1a1a1a;
+    --primary: #FF6B35;
+    --secondary: #00D9FF;
+    --accent: #FFE66D;
+    --success: #4ECDC4;
+    --danger: #FF006E;
+    --shadow: 6px 6px 0 rgba(0, 0, 0, 1);
+    --shadow-hover: 8px 8px 0 rgba(0, 0, 0, 1);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    min-height: 100vh;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(0,0,0,.03) 50px, rgba(0,0,0,.03) 51px),
+      repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(0,0,0,.03) 50px, rgba(0,0,0,.03) 51px);
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 15px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  .logo {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 12px 30px;
+    border: 4px solid var(--fg);
+    box-shadow: var(--shadow);
+    transform: rotate(-1deg);
+    margin-bottom: 12px;
+  }
+
+  .logo h1 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+  }
+
+  .logo .bolt {
+    color: var(--accent);
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+  }
+
+  .tagline {
+    background: var(--accent);
+    display: inline-block;
+    padding: 8px 20px;
+    border: 3px solid var(--fg);
+    font-weight: 600;
+    font-size: 16px;
+    transform: rotate(1deg);
+    box-shadow: 4px 4px 0 rgba(0,0,0,1);
+  }
+
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .main-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .panel {
+    background: white;
+    border: 4px solid var(--fg);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    position: relative;
+  }
+
+  .panel-header {
+    background: var(--secondary);
+    margin: -20px -20px 20px -20px;
+    padding: 12px 20px;
+    border-bottom: 4px solid var(--fg);
+  }
+
+  .panel-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+  }
+
+  .field {
+    margin-bottom: 15px;
+  }
+
+  label {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+
+  input[type="text"],
+  input[type="number"] {
+    width: 100%;
+    padding: 10px 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    border: 3px solid var(--fg);
+    background: var(--bg);
+    transition: all 0.2s;
+  }
+
+  input:focus {
+    outline: none;
+    box-shadow: 4px 4px 0 var(--secondary);
+    transform: translate(-2px, -2px);
+  }
+
+  .examples {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .example-btn {
+    background: var(--accent);
+    border: 2px solid var(--fg);
+    padding: 8px 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .example-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 var(--fg);
+  }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 12px;
+    background: var(--accent);
+    border: 3px solid var(--fg);
+  }
+
+  .checkbox-row input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  .checkbox-row label {
+    margin: 0;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 14px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 4px solid var(--fg);
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 1px;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+    box-shadow: var(--shadow);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    transform: translate(-4px, -4px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .btn-primary:active:not(:disabled) {
+    transform: translate(0, 0);
+    box-shadow: 2px 2px 0 var(--fg);
+  }
+
+  .btn-primary:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .hint {
+    margin-top: 12px;
+    padding: 12px;
+    background: var(--success);
+    border: 3px solid var(--fg);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .error {
+    margin-top: 12px;
+    padding: 12px;
+    background: var(--danger);
+    color: white;
+    border: 3px solid var(--fg);
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    white-space: pre-wrap;
+    display: none;
+  }
+
+  .error.active {
+    display: block;
+  }
+
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .stat-box {
+    flex: 1;
+    padding: 15px;
+    border: 3px solid var(--fg);
+    text-align: center;
+  }
+
+  .stat-box:nth-child(1) { background: var(--secondary); }
+  .stat-box:nth-child(2) { background: var(--accent); }
+
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  .stat-value {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .gauge {
+    height: 30px;
+    background: white;
+    border: 3px solid var(--fg);
+    margin-bottom: 25px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gauge-fill {
+    height: 100%;
+    background: repeating-linear-gradient(
+      45deg,
+      var(--success),
+      var(--success) 10px,
+      var(--secondary) 10px,
+      var(--secondary) 20px
+    );
+    width: 0%;
+    transition: width 0.5s ease;
+    border-right: 3px solid var(--fg);
+  }
+
+  .tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .tab {
+    flex: 1;
+    padding: 15px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 3px solid var(--fg);
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tab:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 var(--fg);
+  }
+
+  .tab.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: var(--shadow);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    border: 3px solid var(--fg);
+    background: white;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+  }
+
+  thead {
+    background: var(--fg);
+    color: white;
+  }
+
+  th {
+    padding: 12px 10px;
+    text-align: left;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 1px;
+    border-right: 2px solid rgba(255,255,255,0.3);
+  }
+
+  th:last-child {
+    border-right: none;
+  }
+
+  td {
+    padding: 12px 10px;
+    border-bottom: 2px solid var(--fg);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:nth-child(even) {
+    background: var(--bg);
+  }
+
+  tr.included {
+    background: rgba(78, 205, 196, 0.2) !important;
+  }
+
+  tr.excluded {
+    opacity: 0.5;
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    border: 2px solid var(--fg);
+    text-transform: uppercase;
+  }
+
+  .status-included {
+    background: var(--success);
+  }
+
+  .status-excluded {
+    background: var(--danger);
+    color: white;
+  }
+
+  .ratio-bar {
+    height: 12px;
+    background: var(--primary);
+    border: 2px solid var(--fg);
+    display: inline-block;
+    min-width: 4px;
+  }
+
+  tr.excluded .ratio-bar {
+    background: #ccc;
+  }
+
+  .empty-state {
+    padding: 50px 20px;
+    text-align: center;
+    border: 4px dashed var(--fg);
+    background: white;
+  }
+
+  .empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+  }
+
+  .empty-state-text {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .bundle-actions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .btn-secondary {
+    flex: 1;
+    background: var(--accent);
+    border: 3px solid var(--fg);
+    padding: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 var(--fg);
+  }
+
+  .bundle-preview {
+    background: var(--fg);
+    color: var(--accent);
+    padding: 15px;
+    border: 4px solid var(--fg);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    line-height: 1.5;
+    max-height: 400px;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .tiktoken-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    background: var(--success);
+    border: 2px solid var(--fg);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 8px;
+  }
+
+  .warning {
+    background: var(--accent);
+    color: var(--fg);
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    border-top: 4px solid var(--fg);
+  }
+
+  footer p {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+  }
+
+  .rotate-1 { transform: rotate(-1deg); }
+  .rotate-2 { transform: rotate(1deg); }
+
+  /* Loading animation */
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  .btn-primary:disabled {
+    animation: pulse 1.5s infinite;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <h1>rank<span class="bolt">⚡</span>context</h1>
+      </div>
+      <div class="tagline">
+        Smart codebase slicing for LLMs 🚀
+      </div>
+    </header>
+
+    <div class="main-grid">
+      <!-- Input Panel -->
+      <div class="panel">
+        <div class="panel-header" style="background: var(--primary); color: white;">
+          <h2>⚙️ Configure</h2>
+        </div>
+
+        <div class="field">
+          <label for="source">📦 Repository</label>
+          <input type="text" id="source" placeholder="./local-repo or https://github.com/user/repo" />
+          <div class="examples">
+            <button class="example-btn" data-src=".">This Repo</button>
+            <button class="example-btn" data-src="https://github.com/psf/requests">Requests</button>
+            <button class="example-btn" data-src="https://github.com/pallets/flask">Flask</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="budget">🎯 Token Budget</label>
+          <input type="number" id="budget" value="20000" min="100" step="100" />
+        </div>
+
+        <div class="checkbox-row">
+          <input type="checkbox" id="manifest-only" />
+          <label for="manifest-only">Manifest Only (Skip Bundle)</label>
+        </div>
+
+        <button class="btn btn-primary" id="run-btn">
+          Generate Bundle ⚡
+        </button>
+
+        <div class="hint">
+          <strong>How it works:</strong> Analyzes import graphs using PageRank, combines with git recency & token costs, then greedily fills your budget with the highest-value files.
+        </div>
+
+        <div class="error" id="error"></div>
+
+        <div id="tiktoken-note"></div>
+      </div>
+
+      <!-- Results Panel -->
+      <div class="panel">
+        <div class="panel-header" style="background: var(--secondary);">
+          <h2>📊 Results</h2>
+        </div>
+
+        <div id="results-empty" class="empty-state">
+          <div class="empty-state-icon">📭</div>
+          <div class="empty-state-text">Run an analysis to see results</div>
+        </div>
+
+        <div id="results" style="display:none;">
+          <div class="stats">
+            <div class="stat-box">
+              <div class="stat-label">Files Included</div>
+              <div class="stat-value" id="stat-files">0/0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Tokens Used</div>
+              <div class="stat-value" id="stat-tokens">0/0</div>
+            </div>
+          </div>
+
+          <div class="gauge">
+            <div class="gauge-fill" id="gauge"></div>
+          </div>
+
+          <div class="tabs">
+            <button class="tab active" id="tab-manifest">📋 Manifest</button>
+            <button class="tab" id="tab-bundle">📦 Bundle</button>
+          </div>
+
+          <div id="manifest-view">
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Path</th>
+                    <th>Score</th>
+                    <th>Boost</th>
+                    <th>Tokens</th>
+                    <th>Status</th>
+                    <th>Ratio</th>
+                  </tr>
+                </thead>
+                <tbody id="manifest-rows"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="bundle-view" style="display:none;">
+            <div class="bundle-actions">
+              <button class="btn-secondary" id="copy-btn">📋 Copy Bundle</button>
+              <button class="btn-secondary" id="download-btn">💾 Download .txt</button>
+            </div>
+            <pre class="bundle-preview" id="bundle-pre"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p><strong>RankContext</strong> — Powered by PageRank & Git History 🔥</p>
+    </footer>
+  </div>
+
+  <script>
+    const sourceEl = document.getElementById('source');
+    const budgetEl = document.getElementById('budget');
+    const manifestOnlyEl = document.getElementById('manifest-only');
+    const runBtn = document.getElementById('run-btn');
+    const errorEl = document.getElementById('error');
+    const emptyEl = document.getElementById('results-empty');
+    const resultsEl = document.getElementById('results');
+    const gaugeEl = document.getElementById('gauge');
+    const statFiles = document.getElementById('stat-files');
+    const statTokens = document.getElementById('stat-tokens');
+    const manifestRows = document.getElementById('manifest-rows');
+    const tiktokenNote = document.getElementById('tiktoken-note');
+    const tabManifest = document.getElementById('tab-manifest');
+    const tabBundle = document.getElementById('tab-bundle');
+    const manifestView = document.getElementById('manifest-view');
+    const bundleView = document.getElementById('bundle-view');
+    const bundlePre = document.getElementById('bundle-pre');
+    const copyBtn = document.getElementById('copy-btn');
+    const downloadBtn = document.getElementById('download-btn');
+
+    let lastBundleText = '';
+
+    // Example buttons
+    document.querySelectorAll('.example-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        sourceEl.value = btn.dataset.src;
+      });
+    });
+
+    // Tab switching
+    tabManifest.addEventListener('click', () => {
+      tabManifest.classList.add('active');
+      tabBundle.classList.remove('active');
+      manifestView.style.display = 'block';
+      bundleView.style.display = 'none';
+    });
+
+    tabBundle.addEventListener('click', () => {
+      tabBundle.classList.add('active');
+      tabManifest.classList.remove('active');
+      manifestView.style.display = 'none';
+      bundleView.style.display = 'block';
+    });
+
+    // Copy bundle
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(lastBundleText);
+      copyBtn.textContent = '✅ Copied!';
+      setTimeout(() => {
+        copyBtn.textContent = '📋 Copy Bundle';
+      }, 1500);
+    });
+
+    // Download bundle
+    downloadBtn.addEventListener('click', () => {
+      const blob = new Blob([lastBundleText], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'context_bundle.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Parse manifest text
+    function parseManifest(text) {
+      const lines = text.split('\n');
+      const rows = [];
+      let inTable = false;
+
+      for (const line of lines) {
+        if (line.startsWith('path')) {
+          inTable = true;
+          continue;
+        }
+        if (!inTable || !line.trim()) continue;
+
+        const m = line.match(/^(\S+)\s+([\d.]+)\s+([\d.]+)x\s+([\d,]+)\s+(.+)$/);
+        if (m) {
+          rows.push({
+            path: m[1],
+            score: parseFloat(m[2]),
+            boost: parseFloat(m[3]),
+            tokens: parseInt(m[4].replace(/,/g, '')),
+            status: m[5].trim()
+          });
+        }
+      }
+      return rows;
+    }
+
+    // Main generate function
+    runBtn.addEventListener('click', async () => {
+      errorEl.classList.remove('active');
+      errorEl.textContent = '';
+
+      const source = sourceEl.value.trim();
+      if (!source) {
+        errorEl.textContent = '⚠️ Enter a repository path or URL';
+        errorEl.classList.add('active');
+        return;
+      }
+
+      runBtn.disabled = true;
+      runBtn.textContent = '⚡ Analyzing...';
+
+      try {
+        const resp = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            source,
+            budget: parseInt(budgetEl.value, 10) || 50000,
+            manifest_only: manifestOnlyEl.checked,
+          })
+        });
+
+        const data = await resp.json();
+
+        if (!resp.ok) {
+          throw new Error(data.error || 'Request failed');
+        }
+
+        // Show results
+        emptyEl.style.display = 'none';
+        resultsEl.style.display = 'block';
+
+        // Update stats
+        statFiles.textContent = `${data.included_count}/${data.total_candidate_files}`;
+        statTokens.textContent = `${data.used_tokens.toLocaleString()}/${data.budget.toLocaleString()}`;
+
+        // Update gauge
+        const pct = Math.min(100, (data.used_tokens / data.budget) * 100);
+        gaugeEl.style.width = pct + '%';
+
+        // Tiktoken badge
+        if (data.used_tiktoken) {
+          tiktokenNote.innerHTML = '<div class="tiktoken-badge">✅ Using tiktoken (exact counts)</div>';
+        } else {
+          tiktokenNote.innerHTML = '<div class="tiktoken-badge warning">⚠️ Approximate token counts (tiktoken unavailable)</div>';
+        }
+
+        // Parse and render manifest
+        const rows = parseManifest(data.manifest_text);
+        const maxRatio = Math.max(...rows.map(r => r.score / Math.max(r.tokens, 1)), 0.0001);
+
+        manifestRows.innerHTML = rows.map(r => {
+          const isIncluded = r.status === 'included';
+          const ratioPct = Math.max(4, ((r.score / Math.max(r.tokens, 1)) / maxRatio) * 100);
+
+          return `<tr class="${isIncluded ? 'included' : 'excluded'}">
+            <td><strong>${r.path}</strong></td>
+            <td>${r.score.toFixed(3)}</td>
+            <td>${r.boost.toFixed(1)}x</td>
+            <td>${r.tokens.toLocaleString()}</td>
+            <td><span class="status-badge ${isIncluded ? 'status-included' : 'status-excluded'}">${r.status}</span></td>
+            <td><span class="ratio-bar" style="width:${ratioPct}%"></span></td>
+          </tr>`;
+        }).join('');
+
+        // Store bundle
+        lastBundleText = data.bundle_text || '(manifest-only mode — no bundle generated)';
+        bundlePre.textContent = lastBundleText;
+
+        // Switch to manifest tab
+        tabManifest.click();
+
+      } catch (err) {
+        errorEl.textContent = `❌ ${err.message || err}`;
+        errorEl.classList.add('active');
+      } finally {
+        runBtn.disabled = false;
+        runBtn.textContent = 'Generate Bundle ⚡';
+      }
+    });
+  </script>
+</body>
+</html>
